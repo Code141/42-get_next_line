@@ -1,0 +1,14 @@
+strstr : algo KMP
+multiplication de karatsuba
+inversion de base
+
+
+------------------------------------
+Puissance paire ?
+trouver puissance du x/2 puis mettre R au carre
+
+Puissance impaire ?
+trouver result * r puis x--
+-----------------------------------
+dichotomie
+
