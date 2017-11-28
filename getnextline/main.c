@@ -6,13 +6,29 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:35 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/28 19:12:50 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/28 19:32:42 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdio.h>
 #include "get_next_line.h"
+
+
+char	*ft_strjoin(char *dest, char src)
+{
+	char *str;
+
+	new = (char*)malloc(sizeof(*new) * (ft_strlen(dest) + ft_strlen(src) + 1));
+//
+//
+//
+//
+//
+//
+//
+	return (new);
+}
 
 int	main(void)
 {

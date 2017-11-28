@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/28 19:14:52 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/28 19:30:29 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,48 @@ t_file	*get_dial(int fd, t_list **dial)
 	return ((t_file*)(c_dial->content));
 }
 
-void	read_more(t_file *file)
+int		read_more(t_file *file)
 {
 	int		ret;
 	int		i;
 	int		start;
 	char	buf[BUFF_SIZE];
 
+	// CHECKER SI SAUVEGARDE DE FIN
 	i = 0;
-	ret = read(file->fd, buf, BUFF_SIZE);
-	while (i < ret)
+	while ((ret = read(file->fd, buf, BUFF_SIZE)) > 0)
 	{
-		printf("%c", buf[i]);
-		// concatene
-		i++;
+		while (i < ret)
+		{
+//			if (buf[i] == '\n' || i == ret - 1)
+//			{
+//				file->line = (char*)malloc(sizeof(*file->line) * i);
+//			}
+			// allou precedent & sauvegarde la suite
+			i++;
+		}
 	}
+	if (ret == 0)
+		return (0);
+	return (-1);
+}
+
+int		get_next_line(t_file *file, char **line)
+{
+	// Concatene les maillions necesaires
+	// a l'obtention d'une ligne
+	return (0);
 }
 
 int		get_next_line(const int fd, char **line)
 {
 	static	t_list *dial;
 	t_file	*file;
-
+	int		status;
 	file = get_dial(fd, &dial);
-	read_more(file);
-	//	if (!fd_dial)
-	return (0);
+
+	status = read_more(file);
+	if (status > 0)
+		fill(file, line);
+	return (status);
 }
