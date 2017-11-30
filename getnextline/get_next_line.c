@@ -46,19 +46,24 @@ int		read_more(t_file *file)
 	int		ret;
 	int		i;
 	int		start;
-	char	buf[BUFF_SIZE];
+	char	buf[BUFF_SIZE + 1];
 
 	// CHECKER SI SAUVEGARDE DE FIN
 	i = 0;
 	while ((ret = read(file->fd, buf, BUFF_SIZE)) > 0)
 	{
+		buf[BUFF_SIZE] = '\0';
+		printf("-%s-", buf);
 		while (i < ret)
 		{
-//			if (buf[i] == '\n' || i == ret - 1)
-//			{
-//				file->line = (char*)malloc(sizeof(*file->line) * i);
-//			}
-			// allou precedent & sauvegarde la suite
+			if (buf[i] == '\n')
+			{
+				buf[i] == '\0';
+				// FREEline
+				file->line = ft_strjoin(file->line, buf);
+				if (i != ret - 1)
+					//sav buf[i] -> jusqu'a ret -1
+			}
 			i++;
 		}
 	}
@@ -67,7 +72,7 @@ int		read_more(t_file *file)
 	return (-1);
 }
 
-int		get_next_line(t_file *file, char **line)
+int		fill(t_file *file, char **line)
 {
 	// Concatene les maillions necesaires
 	// a l'obtention d'une ligne

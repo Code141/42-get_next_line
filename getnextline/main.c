@@ -14,22 +14,6 @@
 #include <stdio.h>
 #include "get_next_line.h"
 
-
-char	*ft_strjoin(char *dest, char src)
-{
-	char *str;
-
-	new = (char*)malloc(sizeof(*new) * (ft_strlen(dest) + ft_strlen(src) + 1));
-//
-//
-//
-//
-//
-//
-//
-	return (new);
-}
-
 int	main(void)
 {
 	int		fd_file1;
@@ -43,16 +27,22 @@ int	main(void)
 	fd_file3 = open("file3", O_RDONLY);
 	if (fd_file1 < 1 || fd_file2 < 1 || fd_file3 < 1)
 		return (1);
+
 	printf("\n|%d|\n", fd_file1);
-	get_next_line(fd_file1, line);
-	get_next_line(fd_file1, line);
-	get_next_line(fd_file1, line);
-	get_next_line(fd_file1, line);
+	get_next_line(fd_file1, line);	
+
 	printf("\n|%d|\n", fd_file2);
 	get_next_line(fd_file2, line);
+	
 	printf("\n|%d|\n", fd_file3);
 	get_next_line(fd_file3, line);
+
+
 	printf("\n|%d|\n", fd_file1);
-	get_next_line(fd_file1, line);
+	get_next_line(fd_file1, line);	
+	get_next_line(fd_file1, line);	
+	get_next_line(fd_file1, line);	
+
+
 	return (0);
 }
