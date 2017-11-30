@@ -20,7 +20,7 @@ typedef struct	s_fillit
 	uint64_t		map[7];
 	int				map_size;
 	int				piece_count;
-	unsigned int	pieces_permut[26];
+	uint64_t		last_column;
 	unsigned int	offsets[26];
 	uint64_t		pieces[];
 }				t_fillit;
