@@ -19,7 +19,7 @@ typedef struct	s_file
 {
 	int		fd;
 	t_list	*lines;
-	t_list	*line;
+	char	*line;
 }				t_file;
 
 int				get_next_line(const int fd, char **line);

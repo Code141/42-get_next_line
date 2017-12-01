@@ -53,15 +53,15 @@ int		read_more(t_file *file)
 	while ((ret = read(file->fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[BUFF_SIZE] = '\0';
-		printf("-%s-", buf);
+		printf("- %s -", buf);
 		while (i < ret)
 		{
 			if (buf[i] == '\n')
 			{
-				buf[i] == '\0';
+				buf[i] = '\0';
 				// FREEline
 				file->line = ft_strjoin(file->line, buf);
-				if (i != ret - 1)
+			//	if (i != ret - 1)
 					//sav buf[i] -> jusqu'a ret -1
 			}
 			i++;
