@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_lst_push_front.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/15 17:06:05 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/15 17:12:35 by gelambin         ###   ########.fr       */
+/*   Created: 2017/12/02 16:05:37 by gelambin          #+#    #+#             */
+/*   Updated: 2017/12/02 16:06:19 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-void	ft_lstadd(t_list **alst, t_list *new)
+void	ft_lst_push_front(t_list **alst, t_list *new)
 {
 	t_list *list;
 

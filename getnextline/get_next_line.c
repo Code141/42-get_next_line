@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/28 19:30:29 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/02 21:53:49 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,79 +15,82 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
+void    ft_list_print(t_list *list);
+
 t_file	*get_dial(int fd, t_list **dial)
 {
 	t_file *file;
 	t_list *c_dial;
+	t_list *prev;
 
-	if (!*dial)
-	{
-		file = (t_file*)malloc(sizeof(*file));
-		*dial = ft_lstnew(file, 1);
-		((t_file*)((*dial)->content))->fd = fd;
-	}
 	c_dial = *dial;
-	while (c_dial && ((t_file*)(c_dial->content))->fd != fd)
-	{
-		if (!c_dial->next)
-		{
-			file = (t_file*)malloc(sizeof(*file));
-			c_dial->next = ft_lstnew(file, 1);
-			((t_file*)(c_dial->content))->fd = fd;
+	prev = c_dial;
+	while (c_dial)
+		if (((t_file*)(c_dial->content))->fd == fd)
 			return ((t_file*)(c_dial->content));
+		else
+		{
+			prev = c_dial;
+			c_dial = c_dial->next;
 		}
-		c_dial = c_dial->next;
-	}
-	return ((t_file*)(c_dial->content));
+	file = (t_file*)malloc(sizeof(*file));
+	file->fd = fd;
+	file->save = (t_list*)malloc(sizeof(t_list));
+	file->save = NULL;
+	if (!*dial)
+		*dial = ft_lstnew(file, 1);
+	else
+		prev->next = ft_lstnew(file, 1);
+	return (file);
 }
 
 int		read_more(t_file *file)
 {
 	int		ret;
-	int		i;
-	int		start;
 	char	buf[BUFF_SIZE + 1];
+	t_list	*new;
+	t_list	*list;
 
-	// CHECKER SI SAUVEGARDE DE FIN
-	i = 0;
+	new = NULL;	
+	list = NULL;	
+
 	while ((ret = read(file->fd, buf, BUFF_SIZE)) > 0)
 	{
-		buf[BUFF_SIZE] = '\0';
-		printf("- %s -", buf);
-		while (i < ret)
+		buf[ret] = '\0';
+
+		new = ft_lstnew(buf, ret);
+		ft_putstr("\n----\n");
+		ft_putstr(buf);
+		ft_putstr("\n----\n");
+	
+		ft_lst_push_back(&list, new);
+
+
+		if (ft_memchr(buf, '\n', ret))
 		{
-			if (buf[i] == '\n')
-			{
-				buf[i] = '\0';
-				// FREEline
-				file->line = ft_strjoin(file->line, buf);
-			//	if (i != ret - 1)
-					//sav buf[i] -> jusqu'a ret -1
-			}
-			i++;
+			file->save = list;
+			return (1);
 		}
+
 	}
 	if (ret == 0)
 		return (0);
 	return (-1);
 }
 
-int		fill(t_file *file, char **line)
-{
-	// Concatene les maillions necesaires
-	// a l'obtention d'une ligne
-	return (0);
-}
-
 int		get_next_line(const int fd, char **line)
 {
-	static	t_list *dial;
-	t_file	*file;
-	int		status;
-	file = get_dial(fd, &dial);
+	static t_list	*dial;
+	t_file			*file;
 
-	status = read_more(file);
-	if (status > 0)
-		fill(file, line);
-	return (status);
+	file = get_dial(fd, &dial);
+	printf("\n---|%d|------------------\n", file->fd);
+
+	read_more(file);
+//	ft_list_print(file->save);
+
+	//	fill(file, line);
+
+
+	return (0);
 }

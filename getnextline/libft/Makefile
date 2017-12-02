@@ -6,7 +6,7 @@
 #    By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/12 21:09:18 by gelambin          #+#    #+#              #
-#    Updated: 2017/11/23 15:14:30 by gelambin         ###   ########.fr        #
+#    Updated: 2017/12/02 16:12:19 by gelambin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,9 @@ SRCS = 	ft_atoi.c		ft_bzero.c		ft_isalnum.c	ft_isalpha.c		\
 		ft_strnstr.c	ft_strrchr.c	ft_strsplit.c	ft_strstr.c			\
 		ft_strsub.c		ft_strtrim.c	ft_tolower.c	ft_toupper.c
 
-SRCS +=	ft_lstnew.c		ft_lstdelone.c	ft_lstdel.c		ft_lstadd.c			\
-		ft_lstiter.c	ft_lstmap.c
+SRCS +=	ft_lstnew.c			ft_lstdelone.c			ft_lstdel.c				\
+		ft_lstiter.c		ft_lstmap.c				ft_lst_push_front.c		\
+		ft_lst_push_back.c	
 
 SRCS +=	ft_atoi_base.c	ft_sqrt.c		ft_factorial.c	ft_power.c			\
 		ft_putnbr_base.c
