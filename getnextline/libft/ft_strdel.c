@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 12:29:11 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/13 14:18:29 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/04 21:34:25 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ void	ft_strdel(char **as)
 {
 	if (!as)
 		return ;
-	*as = NULL;
 	free(*as);
+	*as = NULL;
 }

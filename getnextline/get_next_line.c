@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/04 19:29:22 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/04 23:25:46 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "get_next_line.h"
 
 void    ft_list_print(t_list *list);
+t_list	*ft_lst_join(t_list *alst, t_list *blist);
+t_list	*ft_lst_compact(t_list *alst);
 
 t_file	*get_dial(int fd, t_list **dial)
 {
@@ -64,43 +66,7 @@ int		read_more(t_file *file)
 
 int		fill(t_file *file, char **line)
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	size;
-	t_list			*link;
-
-	i = 0;
-	size = 0;
-	link = file->save;
-	while (((char*)link->content)[i] != '\n')
-	{
-		if (i == link->content_size)
-		{
-			link = link->next;
-			size += i;
-			i = 0;
-		}
-		i++;
-	}
-	size += i;
-	printf("{%d}\n", size);
-
-
-
-/*	
-	*line = (char*)malloc(sizeof(*link) * (i + 1));
-	link = file->save;
-	while (((char*)link->content)[i] != '\n')
-	{
-		(*line)[j] = ((char*)link->content)[i];
-		if (i == link->content_size)
-		{
-			link = link->next;
-			i = 0;
-		}
-		i++;
-	}
-*/	return (0);
+	return (0);
 }
 
 int		get_next_line(const int fd, char **line)
@@ -111,18 +77,31 @@ int		get_next_line(const int fd, char **line)
 	file = get_dial(fd, &dial);
 	if (!file)
 		return (-1); // allocation probleme dans dial
-
 	printf("-| LOADED FD = %d |----------------\n", file->fd);
-	
 	if (!file->save || !ft_memchr(file->save->content, '\n', file->save->content_size))
 		read_more(file);
 
+	t_list	*new;
+
+	new = ft_lst_compact(file->save);
+	// FREE FILE SAVE
+	file->save = new;
+/*
+	while (file->save && file->save->next)
+	{
+		new = ft_lst_join(file->save, file->save->next);
+		new->next = file->save->next->next;
+		free(file->save->next);
+		free(file->save);
+		file->save = new;
+	}
+*/
 	fill(file, line);
-	
+
 /*-------------------------------------------------------------------------*/	
 
-	ft_list_print(file->save);
-
+//	ft_list_print(file->save);
+/*
 	t_list	*file_l;
 	t_list	*save;
 	int		i;
@@ -142,5 +121,5 @@ int		get_next_line(const int fd, char **line)
 		}
 		file_l = file_l->next;
 	}
-	return (0);
+*/	return (0);
 }

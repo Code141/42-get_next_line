@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:35 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/04 19:28:21 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/04 23:26:05 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,33 @@ t_list	*ft_lst_join(t_list *alst, t_list *blist)
 	new_lst = (t_list*)malloc(sizeof(*new_lst));
 	if (!new_lst)
 		return (NULL);
-
-	new_lst->content = ft_strjoin(alst->content, blist->content);
-
-
-	size = (alst->content_size - 1 + blist->content_size - 1) + 1;
-	new_lst->content_size = size;
+	new_lst->content_size = alst->content_size + blist->content_size;
+	new_lst->content = ft_memalloc(new_lst->content_size);
+	if (!new_lst->content)
+		return (NULL);
+	ft_memcpy(new_lst->content, alst->content, alst->content_size);
+	ft_memcpy(new_lst->content + alst->content_size, blist->content, blist->content_size);
+	new_lst->content_size = alst->content_size + blist->content_size;
 	return (new_lst);
 }
 
-
+t_list	*ft_lst_compact(t_list *alst)
+{
+	t_list	*new;
+	
+	if (alst && alst->next)
+	{
+		new = ft_lst_join(alst, alst->next);
+		alst = alst->next;
+	}	
+	while (alst && alst->next)
+	{
+		new = ft_lst_join(new, alst->next);
+		alst = alst->next;
+		new->next = alst->next;
+	}
+	return (new);
+}
 
 int	main(void)
 {
@@ -99,5 +116,6 @@ int	main(void)
 	get_next_line(fd_file1, line);
 	get_next_line(fd_file2, line);
 	get_next_line(fd_file3, line);
+	get_next_line(fd_file1, line);
 	return (0);
 }
