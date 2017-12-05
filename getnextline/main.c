@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:35 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/04 23:26:05 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/05 12:40:39 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,25 @@ t_list	*ft_lst_compact(t_list *alst)
 	if (alst && alst->next)
 	{
 		new = ft_lst_join(alst, alst->next);
+		if (!new)
+			return (NULL);
 		alst = alst->next;
-	}	
+	}
+	else
+	{
+		return (NULL);
+	}
 	while (alst && alst->next)
 	{
 		new = ft_lst_join(new, alst->next);
+		if (!new)
+			return (NULL);
 		alst = alst->next;
 		new->next = alst->next;
 	}
 	return (new);
 }
-
-int	main(void)
+void	main2()
 {
 	int		fd_file1;
 	int		fd_file2;
@@ -104,11 +111,9 @@ int	main(void)
 	fd_file1 = open("file1", O_RDONLY);
 	fd_file2 = open("file2", O_RDONLY);
 	fd_file3 = open("file3", O_RDONLY);
-	if (fd_file1 < 1 || fd_file2 < 1 || fd_file3 < 1)
-		return (1);
 
 	get_next_line(fd_file1, line);
-	get_next_line(fd_file2, line);
+/*	get_next_line(fd_file2, line);
 	get_next_line(fd_file3, line);
 	get_next_line(fd_file1, line);
 	get_next_line(fd_file2, line);
@@ -117,5 +122,12 @@ int	main(void)
 	get_next_line(fd_file2, line);
 	get_next_line(fd_file3, line);
 	get_next_line(fd_file1, line);
+*/
+}
+int	main(void)
+{
+	main2();
+//	while (1)
+//	{}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/04 23:25:46 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/05 12:49:59 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 void    ft_list_print(t_list *list);
 t_list	*ft_lst_join(t_list *alst, t_list *blist);
 t_list	*ft_lst_compact(t_list *alst);
+
+
+
+
+
+
+
 
 t_file	*get_dial(int fd, t_list **dial)
 {
@@ -48,16 +55,27 @@ t_file	*get_dial(int fd, t_list **dial)
 	return (link->content);
 }
 
+
 int		read_more(t_file *file)
 {
 	int		ret;
 	char	buf[BUFF_SIZE];
+	t_list	*new;
 
 	while ((ret = read(file->fd, buf, BUFF_SIZE)) > 0)
 	{
 		ft_lst_push_back(&file->save, ft_lstnew(buf, ret));
-		if (ft_memchr(buf, '\n', ret))
+		if (ft_memchr(buf, '\n', ret)) // OR EOF
+		{
+			if (file->save && file->save->next)
+			{
+				new = ft_lst_compact(file->save);
+				// FREE FILE SAVE
+				file->save = new;
+			}
+			file->line = (char*)(file->save->content);
 			return (1);
+		}
 	}
 	if (ret == 0)
 		return (0);
@@ -68,6 +86,15 @@ int		fill(t_file *file, char **line)
 {
 	return (0);
 }
+
+
+
+
+
+
+
+
+
 
 int		get_next_line(const int fd, char **line)
 {
@@ -81,22 +108,30 @@ int		get_next_line(const int fd, char **line)
 	if (!file->save || !ft_memchr(file->save->content, '\n', file->save->content_size))
 		read_more(file);
 
-	t_list	*new;
+	int				i;
+	char			*str;
 
-	new = ft_lst_compact(file->save);
-	// FREE FILE SAVE
-	file->save = new;
-/*
-	while (file->save && file->save->next)
+	if (file->line)
+		str = file->line;
+	else
+		str = (char*)(file->save->content);
+	i = 0;
+	while (str[i] != '\n')
+		i++;
+	line = (char**)malloc(sizeof(*line) * (i + 1));
+	if (!line)
+		return (-1);
+	i = 0;
+	while (str[i] != '\n')
 	{
-		new = ft_lst_join(file->save, file->save->next);
-		new->next = file->save->next->next;
-		free(file->save->next);
-		free(file->save);
-		file->save = new;
-	}
-*/
-	fill(file, line);
+		(*line)[i] = str[i];
+		i++;
+	}	
+		
+		
+		
+		
+	//	fill(file, line);
 
 /*-------------------------------------------------------------------------*/	
 
