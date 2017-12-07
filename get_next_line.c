@@ -62,8 +62,8 @@ int		read_more(t_file *file)
 		{
 			if (file->save && file->save->next)
 			{
-				new = ft_lst_compact(file->save);
-				// FREE FILE SAVE
+				new = ft_lst_fold(file->save);
+				ft_lstdel(&file->save, &ft_memdel);
 				file->save = new;
 			}
 			return (1);
@@ -95,7 +95,7 @@ int		send(t_file *file, char **line)
 	}
 	(*line)[i] = '\0';
 	new = ft_lstnew(((char*)(file->save->content)) + i + 1, file->save->content_size - i - 1);
-	//FREE FILE->SAVE
+	ft_lstdel(&file->save, &ft_memdel);
 	file->save = new;
 	return (1);
 }
@@ -117,10 +117,10 @@ int		get_next_line(const int fd, char **line)
 /*-------------------------------------------------------------------------*/	
 
 //	ft_list_print(file->save);
-
+/*
 	t_list	*file_l;
 	t_list	*save;
-/*	
+	
 	file_l = dial;
 	while (file_l)
 	{

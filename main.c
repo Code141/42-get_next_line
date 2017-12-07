@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "get_next_line.h"
-
+/*
 void    ft_list_print(t_list *list)
 {
 	int i;
@@ -56,10 +56,9 @@ void    ft_list_print(t_list *list)
 	ft_putstr((char*)list->content);
 	ft_putchar('\n');
 }
-
+*/
 t_list	*ft_lst_join(t_list *alst, t_list *blist)
 {
-	unsigned int	size;
 	t_list			*new_lst;
 
 	new_lst = (t_list*)malloc(sizeof(*new_lst));
@@ -104,14 +103,14 @@ t_list	*ft_lst_compact(t_list *alst)
 void	main2()
 {
 	int		fd_file1;
-	int		fd_file2;
-	int		fd_file3;
+//	int		fd_file2;
+//	int		fd_file3;
 	char	*line;
-	int		i;
+//	int		i;
 
 	fd_file1 = open("file1", O_RDONLY);
-	fd_file2 = open("file2", O_RDONLY);
-	fd_file3 = open("file3", O_RDONLY);
+//	fd_file2 = open("file2", O_RDONLY);
+//	fd_file3 = open("file3", O_RDONLY);
 
 	get_next_line(fd_file1, &line);
 	ft_putstr("\n----------------------");
@@ -119,24 +118,28 @@ void	main2()
 	ft_putstr("----------------------\n");
 	ft_putstr(line);
 	free(line);
-											get_next_line(fd_file1, &line);
-	ft_putstr("\n----------------------");
-	ft_putnbr(fd_file1);
-	ft_putstr("----------------------\n");
-	ft_putstr(line);
-	free(line);
+
 	get_next_line(fd_file1, &line);
 	ft_putstr("\n----------------------");
 	ft_putnbr(fd_file1);
 	ft_putstr("----------------------\n");
 	ft_putstr(line);
 	free(line);
+/*
 	get_next_line(fd_file1, &line);
 	ft_putstr("\n----------------------");
 	ft_putnbr(fd_file1);
 	ft_putstr("----------------------\n");
 	ft_putstr(line);
 	free(line);
+
+	get_next_line(fd_file1, &line);
+	ft_putstr("\n----------------------");
+	ft_putnbr(fd_file1);
+	ft_putstr("----------------------\n");
+	ft_putstr(line);
+	free(line);
+
 	get_next_line(fd_file1, &line);
 	ft_putstr("\n----------------------");
 	ft_putnbr(fd_file1);
@@ -206,7 +209,7 @@ void	main2()
 	ft_putstr("----------------------\n");
 	ft_putstr(line);
 	free(line);
-	
+*/	
 /*
 
 
@@ -222,10 +225,9 @@ void	main2()
 	get_next_line(fd_file1, &line);
 */
 }
+
 int	main(void)
 {
 	main2();
-//	while (1)
-//	{}
 	return (0);
 }

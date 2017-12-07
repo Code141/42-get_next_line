@@ -25,5 +25,4 @@ void	ft_lst_push_back(t_list **alst, t_list *new)
 	while (element->next)
 		element = element->next;
 	element->next = new;
-
 }
