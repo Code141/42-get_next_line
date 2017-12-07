@@ -49,7 +49,7 @@ t_file	*get_dial(int fd, t_list **dial)
 }
 
 
-int		read_more(t_file *file)
+void	read_more(t_file *file)
 {
 	int		ret;
 	char	buf[BUFF_SIZE];
@@ -66,12 +66,13 @@ int		read_more(t_file *file)
 				ft_lstdel(&file->save, &ft_memdel);
 				file->save = new;
 			}
-			return (1);
+			file->status = 1;
+			return ;
 		}
 	}
 	if (ret == 0)
-		return (0);
-	return (-1);
+		file->status = 0;
+	file->status = -1;
 }
 
 int		send(t_file *file, char **line)
@@ -105,37 +106,14 @@ int		get_next_line(const int fd, char **line)
 	static t_list	*dial;
 	t_file			*file;
 
+	if (fd < 0)
+		return (-1);
 	file = get_dial(fd, &dial);
 	if (!file)
 		return (-1); // allocation probleme dans dial
-
 	if (!file->save || !ft_memchr(file->save->content, '\n', file->save->content_size))
 		read_more(file);
-
-	send(file, line);
-
-/*-------------------------------------------------------------------------*/	
-
-//	ft_list_print(file->save);
-/*
-	t_list	*file_l;
-	t_list	*save;
-	
-	file_l = dial;
-	while (file_l)
-	{
-		file = (t_file*)(file_l->content);
-		printf("[%d]\n", file->fd);
-		save = file->save;
-		while (save)
-		{
-			i = 0;
-			
-			while (i < save->content_size)
-					ft_putchar(((char*)save->content)[i++]);
-			save = save->next;
-		}
-		file_l = file_l->next;
-	}
-*/	return (0);
+	if (file->save && file->status == 1)
+		send(file, line);
+	return (file->status);
 }
