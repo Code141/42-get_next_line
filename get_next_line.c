@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/09 17:44:45 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/09 18:30:44 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ t_file	*get_dial(int fd, t_list **dial)
 	return (link->content);
 }
 
-void	read_more(t_file *file)
+void	read_more(t_file *file, char *buf)
 {
 	int		ret;
-	char	buf[BUFF_SIZE];
 	t_list	*new;
 
 	while ((ret = read(file->fd, buf, BUFF_SIZE)) > -1)
@@ -103,8 +102,10 @@ int		send(t_file *file, char **line)
 int		get_next_line(const int fd, char **line)
 {
 	static t_list	*dial;
+	char			*buf;
 	t_file			*file;
 
+	buf = (char*)malloc(BUFF_SIZE);
 	if (fd < 0)
 		return (-1);
 	file = get_dial(fd, &dial);
@@ -113,7 +114,7 @@ int		get_next_line(const int fd, char **line)
 	file->status = 0;
 	if (!file->save
 		|| !ft_memchr(file->save->content, '\n', file->save->content_size))
-		read_more(file);
+		read_more(file, buf);
 	if (file->save)
 		send(file, line);
 	return (file->status);
