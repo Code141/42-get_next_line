@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/09 18:30:44 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/09 18:47:15 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ int		get_next_line(const int fd, char **line)
 		read_more(file, buf);
 	if (file->save)
 		send(file, line);
+	free(buf);
 	return (file->status);
 }
