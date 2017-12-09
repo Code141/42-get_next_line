@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 16:55:06 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/05 16:59:04 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/09 18:21:53 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ t_list	*ft_lst_join(t_list *alst, t_list *blist)
 	if (!new_lst->content)
 		return (NULL);
 	ft_memcpy(new_lst->content, alst->content, alst->content_size);
-	ft_memcpy(new_lst->content + alst->content_size, blist->content, blist->content_size);
+	ft_memcpy(new_lst->content + alst->content_size,
+			blist->content, blist->content_size);
 	new_lst->content_size = alst->content_size + blist->content_size;
 	return (new_lst);
 }

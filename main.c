@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:35 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/05 14:52:01 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/09 17:37:41 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,24 +103,25 @@ t_list	*ft_lst_compact(t_list *alst)
 void	main2()
 {
 		int		fd_file1;
-			int		fd_file2;
-		//	int		fd_file3;
+		int		fd_file2;
+		int		fd_file3;
 		char	*line;
 		int		i;
 
 		fd_file1 = open("file1", O_RDONLY);
-			fd_file2 = open("file2", O_RDONLY);
-		//	fd_file3 = open("file3", O_RDONLY);
+		fd_file2 = open("file2", O_RDONLY);
+		fd_file3 = open("file3", O_RDONLY);
 
 		i = 0;
 		while (i < 2)
 		{	
-		
 				line = NULL;
-				get_next_line(fd_file1, &line);
-				ft_putstr("\n----------------------");
+				ft_putstr("\nFD = | ");
 				ft_putnbr(fd_file1);
-				ft_putstr("----------------------\n");
+				ft_putstr(" | ----------------------\n");
+				ft_putchar('[');
+				ft_putnbr(get_next_line(fd_file1, &line));
+				ft_putstr("]	");
 				if (line)
 				{
 					ft_putstr(line);
@@ -132,12 +133,13 @@ void	main2()
 		i = 0;
 		while (i < 2)
 		{	
-		
 				line = NULL;
-				get_next_line(fd_file2, &line);
-				ft_putstr("\n----------------------");
+				ft_putstr("\nFD = | ");
 				ft_putnbr(fd_file2);
-				ft_putstr("----------------------\n");
+				ft_putstr(" | ----------------------\n");
+				ft_putchar('[');
+				ft_putnbr(get_next_line(fd_file2, &line));
+				ft_putstr("]	");
 				if (line)
 				{
 					ft_putstr(line);
@@ -147,14 +149,15 @@ void	main2()
 		}
 
 		i = 0;
-		while (i < 8)
+		while (i < 10)
 		{	
-		
 				line = NULL;
-				get_next_line(fd_file1, &line);
-				ft_putstr("\n----------------------");
-				ft_putnbr(fd_file1);
-				ft_putstr("----------------------\n");
+				ft_putstr("\nFD = | ");
+				ft_putnbr(fd_file3);
+				ft_putstr(" | ----------------------\n");
+				ft_putchar('[');
+				ft_putnbr(get_next_line(fd_file3, &line));
+				ft_putstr("]	");
 				if (line)
 				{
 					ft_putstr(line);
@@ -163,22 +166,6 @@ void	main2()
 				i++;
 		}
 
-		i = 0;
-		while (i < 8)
-		{	
-		
-				line = NULL;
-				get_next_line(fd_file2, &line);
-				ft_putstr("\n----------------------");
-				ft_putnbr(fd_file2);
-				ft_putstr("----------------------\n");
-				if (line)
-				{
-					ft_putstr(line);
-					free(line);
-				}
-				i++;
-		}
 
 
 }
@@ -186,5 +173,7 @@ void	main2()
 int	main(void)
 {
 		main2();
+		while (1)
+		{}
 		return (0);
 }

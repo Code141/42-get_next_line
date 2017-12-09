@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 15:05:36 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/23 17:13:32 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/09 16:04:30 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	ft_lstdelone(t_list **alst, void (*del)(void**))
 	if (!alst || !*alst)
 		return ;
 	del((void*)(*alst)->content);
-	*alst = NULL;
 	free(*alst);
+	*alst = NULL;
 }

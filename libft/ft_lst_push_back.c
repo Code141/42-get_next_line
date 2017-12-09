@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 16:13:11 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/04 17:40:05 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/09 18:23:43 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_lst_push_back(t_list **alst, t_list *new)
 {
 	t_list	*element;
-	
+
 	if (!*alst)
 	{
 		*alst = new;

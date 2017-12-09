@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/05 18:18:42 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/05 18:24:21 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/09 18:23:12 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ void	*ft_lst_fold(t_list *alst)
 	}
 	return (new);
 }
-
