@@ -111,6 +111,7 @@ void	main2()
 		fd_file1 = open("file1", O_RDONLY);
 			fd_file2 = open("file2", O_RDONLY);
 		//	fd_file3 = open("file3", O_RDONLY);
+
 		i = 0;
 		while (i < 2)
 		{	
@@ -127,6 +128,7 @@ void	main2()
 				}
 				i++;
 		}
+
 		i = 0;
 		while (i < 2)
 		{	
@@ -143,8 +145,9 @@ void	main2()
 				}
 				i++;
 		}
+
 		i = 0;
-		while (i < 2)
+		while (i < 8)
 		{	
 		
 				line = NULL;
@@ -159,8 +162,9 @@ void	main2()
 				}
 				i++;
 		}
+
 		i = 0;
-		while (i < 2)
+		while (i < 8)
 		{	
 		
 				line = NULL;

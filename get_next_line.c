@@ -38,6 +38,7 @@ t_file	*get_dial(int fd, t_list **dial)
 		}
 	file.fd = fd;
 	file.save = NULL;
+	file.status = 1;
 	link = ft_lstnew((void*)(&file), sizeof(file));
 	if (!link)
 		return (NULL);
@@ -58,7 +59,7 @@ void	read_more(t_file *file)
 	while ((ret = read(file->fd, buf, BUFF_SIZE)) > 0)
 	{
 		ft_lst_push_back(&file->save, ft_lstnew(buf, ret));
-		if (ft_memchr(buf, '\n', ret)) // OR EOF
+		if (ft_memchr(buf, '\n', ret))
 		{
 			if (file->save && file->save->next)
 			{
@@ -85,18 +86,13 @@ int		send(t_file *file, char **line)
 	i = 0;
 	while (str[i] != '\n')
 		i++;
-	*line = (char*)malloc(sizeof(char) * (i + 1));
+	*line = ft_memalloc(i + 1);
 	if (!line)
 		return (-1);
-	i = 0;
-	while (str[i] != '\n')
-	{
-		(*line)[i] = str[i];
-		i++;
-	}
+	ft_memccpy(*line, str, '\n', file->save->content_size);
 	(*line)[i] = '\0';
 	new = ft_lstnew(((char*)(file->save->content)) + i + 1, file->save->content_size - i - 1);
-	ft_lstdel(&file->save, &ft_memdel);
+	ft_lstdelone(&file->save, &ft_memdel);
 	file->save = new;
 	return (1);
 }
@@ -111,7 +107,7 @@ int		get_next_line(const int fd, char **line)
 	file = get_dial(fd, &dial);
 	if (!file)
 		return (-1); // allocation probleme dans dial
-	if (!file->save || !ft_memchr(file->save->content, '\n', file->save->content_size))
+	if (file->status == 1 && (!file->save || !ft_memchr(file->save->content, '\n', file->save->content_size)))
 		read_more(file);
 	if (file->save && file->status == 1)
 		send(file, line);
