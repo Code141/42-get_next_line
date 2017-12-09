@@ -6,13 +6,13 @@
 #    By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/12 21:09:18 by gelambin          #+#    #+#              #
-#    Updated: 2017/12/02 16:12:19 by gelambin         ###   ########.fr        #
+#    Updated: 2017/12/09 18:53:32 by gelambin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 CC = gcc
-CLIB = -I.
+CLIB = -I./includes/
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = 	ft_atoi.c		ft_bzero.c		ft_isalnum.c	ft_isalpha.c		\
