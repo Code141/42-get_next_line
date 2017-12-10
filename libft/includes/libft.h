@@ -85,6 +85,7 @@ t_list			*ft_lst_join(t_list *alst, t_list *blist);
 
 unsigned int	ft_lst_weight(t_list *alst);
 void			*ft_lst_fold(t_list *alst);
+t_list			*ft_lst_remove(t_list *alst, t_list *elem);
 
 void			ft_putnbr_base(int nbr, char *base);
 int				ft_atoi_base(char *str, char *base);

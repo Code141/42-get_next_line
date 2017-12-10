@@ -31,7 +31,8 @@ SRCS = 	ft_atoi.c		ft_bzero.c		ft_isalnum.c	ft_isalpha.c		\
 
 SRCS +=	ft_lstnew.c			ft_lstdelone.c			ft_lstdel.c				\
 		ft_lstiter.c		ft_lstmap.c				ft_lst_push_front.c		\
-		ft_lst_push_back.c	ft_lst_weight.c			ft_lst_fold.c
+		ft_lst_push_back.c	ft_lst_weight.c			ft_lst_fold.c			\
+		ft_lst_remove.c
 
 SRCS +=	ft_atoi_base.c	ft_sqrt.c		ft_factorial.c	ft_power.c			\
 		ft_putnbr_base.c

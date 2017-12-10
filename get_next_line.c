@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-t_file	*get_dial(int fd, t_list **dial)
+t_list	*get_dial(int fd, t_list **dial)
 {
 	t_file	file;
 	t_list	*c_dial;
@@ -26,7 +26,7 @@ t_file	*get_dial(int fd, t_list **dial)
 	prev = c_dial;
 	while (c_dial)
 		if (((t_file*)(c_dial->content))->fd == fd)
-			return ((t_file*)(c_dial->content));
+			return (c_dial);
 		else
 		{
 			prev = c_dial;
@@ -41,7 +41,7 @@ t_file	*get_dial(int fd, t_list **dial)
 		*dial = link;
 	else
 		prev->next = link;
-	return (link->content);
+	return (link);
 }
 
 void	read_more(t_file *file, char *buf)
@@ -102,13 +102,15 @@ int		send(t_file *file, char **line)
 int		get_next_line(const int fd, char **line)
 {
 	static t_list	*dial;
+	t_list			*link_dial;
 	char			*buf;
 	t_file			*file;
 
 	buf = (char*)malloc(BUFF_SIZE);
 	if (fd < 0)
 		return (-1);
-	file = get_dial(fd, &dial);
+	link_dial = get_dial(fd, &dial);
+	file = link_dial->content;
 	if (!file)
 		return (-1);
 	file->status = 0;
@@ -117,6 +119,15 @@ int		get_next_line(const int fd, char **line)
 		read_more(file, buf);
 	if (file->save)
 		send(file, line);
+
+
+
 	free(buf);
+	if (file->status < 1)
+	{
+		ft_lstdel(&file->save, &ft_memdel);
+		ft_lst_remove(dial, link_dial);
+	}
+
 	return (file->status);
 }
