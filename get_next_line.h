@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:23:38 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/09 18:52:12 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/11 12:49:41 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct	s_file
 	int				fd;
 	int				status;
 	t_list			*save;
+	char			*buf;
 }				t_file;
 
 int				get_next_line(const int fd, char **line);
