@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/11 13:40:20 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/11 15:48:47 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,11 @@ t_list	*get_dial(int fd, t_list **dial)
 	return (link);
 }
 
-void	read_more(t_file *file)
+void	read_more(t_file *file, char *buf)
 {
 	int		ret;
 	t_list	*new;
-	char	*buf;
-	
-	buf = (char*)malloc(BUFF_SIZE);	
+
 	while ((ret = read(file->fd, buf, BUFF_SIZE)) > -1)
 	{
 		if (ret > 0)
@@ -64,14 +62,11 @@ void	read_more(t_file *file)
 					return ;
 				ft_lstdel(&file->save, &ft_memdel);
 				file->save = new;
-				file->status = 1;
 			}
-			free(buf);
 			return ;
 		}
 	}
 	file->status = -1;
-	free(buf);
 }
 
 int		send(t_file *file, char **line)
@@ -99,9 +94,7 @@ int		send(t_file *file, char **line)
 		file->save = new;
 	}
 	else
-	{
 		ft_lstdelone(&file->save, &ft_memdel);
-	}
 	return (1);
 }
 
@@ -110,7 +103,9 @@ int		get_next_line(const int fd, char **line)
 	static t_list	*dial;
 	t_list			*link_dial;
 	t_file			*file;
+	char			*buf;
 
+	buf = (char*)malloc(BUFF_SIZE);
 	if (fd < 0)
 		return (-1);
 	link_dial = get_dial(fd, &dial);
@@ -120,15 +115,14 @@ int		get_next_line(const int fd, char **line)
 	file->status = 0;
 	if (!file->save
 		|| !ft_memchr(file->save->content, '\n', file->save->content_size))
-		read_more(file);
+		read_more(file, buf);
 	if (file->save)
 		send(file, line);
-
 	if (file->status < 1)
 	{
 		ft_lstdel(&file->save, &ft_memdel);
 		ft_lst_remove(dial, link_dial);
 	}
-
+	free(buf);
 	return (file->status);
 }
