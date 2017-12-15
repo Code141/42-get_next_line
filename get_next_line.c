@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/15 17:56:52 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/15 18:06:09 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,30 +51,25 @@ void	read_more(t_file *file)
 	char	*buf;
 
 	buf = (char*)malloc(BUFF_SIZE);
-	while ((ret = read(file->fd, buf, BUFF_SIZE)) > -1)
+	while ((ret = read(file->fd, buf, BUFF_SIZE)) > 0)
 	{
-		if (ret > 0)
-			ft_lst_push_back(&file->save, ft_lstnew(buf, ret));
-		if (ft_memchr(buf, '\n', ret) || ret == 0)
-		{
-			if (file->save && file->save->next)
-			{
-				new = ft_lst_fold(file->save);
-				if (!new)
-					return ;
-				ft_lstdel(&file->save, &ft_memdel);
-				file->save = new;
-			}
-			if (ret)
-				file->status = 1;
-			else
-				file->status = 0;
-			free(buf);
-			return ;
-		}
+		ft_lst_push_back(&file->save, ft_lstnew(buf, ret));
+		if (ft_memchr(buf, '\n', ret))
+			break ;
 	}
+	if (file->save)
+	{
+		new = ft_lst_fold(file->save);
+		ft_lstdel(&file->save, &ft_memdel);
+		file->save = new;
+	}
+	if (ret > 0)
+		file->status = 1;
+	else if (ret == 0)
+		file->status = 0;
+	else
+		file->status = -1;
 	free(buf);
-	file->status = -1;
 }
 
 int		send(t_file *file, char **line)
