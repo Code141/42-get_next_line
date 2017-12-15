@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 15:05:36 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/15 16:41:50 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/15 23:09:20 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,22 @@
 
 t_list	*ft_lst_remove(t_list **alst, t_list *elem)
 {
+	t_list	*el;
+
 	if (!*alst || !elem)
 		return (NULL);
 	if (*alst == elem)
 	{
 		*alst = (*alst)->next;
+		elem->next = NULL;
 		return (elem);
 	}
-	while ((*alst)->next && (*alst)->next != elem)
-		*alst = (*alst)->next;
-	if ((*alst)->next == elem)
+	el = *alst;
+	while (el->next && el->next != elem)
+		el = el->next;
+	if (el->next == elem)
 	{
-		if (elem->next)
-			(*alst)->next = elem->next;
-		else
-			(*alst)->next = NULL;
+		el->next = elem->next;
 		elem->next = NULL;
 		return (elem);
 	}

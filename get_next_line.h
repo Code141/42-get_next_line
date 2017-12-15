@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:23:38 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/15 16:51:09 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/15 23:16:00 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 # include "libft/includes/libft.h"
 # ifndef BUFF_SIZE
-#  define BUFF_SIZE 1
+#  define BUFF_SIZE 3
 # endif
 
 typedef struct	s_file

@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/15 18:06:09 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/15 23:17:41 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_list	*get_dial(int fd, t_list **dial)
 	return (link);
 }
 
-void	read_more(t_file *file)
+int		read_more(t_file *file)
 {
 	int		ret;
 	t_list	*new;
@@ -63,13 +63,12 @@ void	read_more(t_file *file)
 		ft_lstdel(&file->save, &ft_memdel);
 		file->save = new;
 	}
-	if (ret > 0)
-		file->status = 1;
-	else if (ret == 0)
-		file->status = 0;
-	else
-		file->status = -1;
 	free(buf);
+	if (ret > 0)
+		return (1);
+	else if (ret == 0)
+		return (0);
+	return (-1);
 }
 
 int		send(t_file *file, char **line)
@@ -85,10 +84,8 @@ int		send(t_file *file, char **line)
 	*line = ft_memalloc(i + 1);
 	if (!line)
 		return (-1);
-	ft_memccpy(*line, str, '\n', file->save->content_size);
+	ft_memccpy(*line, str, '\n', i);
 	(*line)[i] = '\0';
-	if (i)
-		file->status = 1;
 	if (i < file->save->content_size)
 	{
 		new = ft_lstnew(((char*)(file->save->content)) + i + 1,
@@ -98,6 +95,8 @@ int		send(t_file *file, char **line)
 	}
 	else
 		ft_lstdelone(&file->save, &ft_memdel);
+	if (!i && !file->status)
+		return (0);
 	return (1);
 }
 
@@ -110,21 +109,22 @@ int		get_next_line(const int fd, char **line)
 	if (fd < 0)
 		return (-1);
 	link_dial = get_dial(fd, &dial);
+	if (!link_dial)
+		return (-1);
 	file = link_dial->content;
 	if (!file)
 		return (-1);
-	file->status = 0;
 	if (!file->save
 		|| !ft_memchr(file->save->content, '\n', file->save->content_size))
-		read_more(file);
-	if (file->status == -1)
+		file->status = read_more(file);
+	if (file->save && file->status != -1)
+		file->status = send(file, line);
+	if (file->status < 0)
 	{
 		ft_lstdel(&file->save, &ft_memdel);
 		link_dial = ft_lst_remove(&dial, link_dial);
 		ft_lstdel(&link_dial, &ft_memdel);
 		return (-1);
 	}
-	if (file->save)
-		send(file, line);
 	return (file->status);
 }
