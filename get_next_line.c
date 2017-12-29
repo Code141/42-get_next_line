@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-t_list	*get_dial(int fd, t_list **dial)
+static t_list	*get_dial(int fd, t_list **dial)
 {
 	t_file	file;
 	t_list	*c_dial;
@@ -44,7 +44,7 @@ t_list	*get_dial(int fd, t_list **dial)
 	return (link);
 }
 
-int		read_more(t_file *file)
+static int		read_more(t_file *file)
 {
 	int		ret;
 	t_list	*new;
@@ -71,7 +71,7 @@ int		read_more(t_file *file)
 	return (-1);
 }
 
-int		send(t_file *file, char **line)
+static int		send(t_file *file, char **line)
 {
 	size_t	i;
 	char	*str;
