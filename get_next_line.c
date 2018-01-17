@@ -6,13 +6,10 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:24:01 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/15 23:17:41 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/17 17:34:11 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include "get_next_line.h"
 
 static t_list	*get_dial(int fd, t_list **dial)

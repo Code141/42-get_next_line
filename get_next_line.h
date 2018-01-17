@@ -6,15 +6,17 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/28 13:23:38 by gelambin          #+#    #+#             */
-/*   Updated: 2017/12/15 23:16:00 by gelambin         ###   ########.fr       */
+/*   Updated: 2018/01/17 17:34:38 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+# include <unistd.h>
+# include <stdlib.h>
 # include "libft/includes/libft.h"
 # ifndef BUFF_SIZE
-#  define BUFF_SIZE 3
+#  define BUFF_SIZE 8
 # endif
 
 typedef struct	s_file
